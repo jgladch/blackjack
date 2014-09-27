@@ -7,26 +7,12 @@ class window.App extends Backbone.Model
     @set 'dealerHand', deck.dealDealer()
     @set 'winner', undefined
     @set 'disableButtons', false
-    @set 'playerScore', 0
-    @set 'dealerScore', 0
 
     # event handlers
     @get('playerHand').on('stand', (hand) =>
-      @setScore hand
       @set 'disableButtons', true
       @dealerPlay() )
-    @get('dealerHand').on('stand', (hand) =>
-      @setScore hand )
 
-  setScore: (hand) ->
-    scores = hand.scores()
-    score = scores[0]
-    score = scores[1]  if scores.length > 1 and scores[1] <= 21
-    if hand.isDealer
-      @set 'dealerScore', score
-    else
-      @set 'playerScore', score
-    return
 
   dealerPlay: ->
     hand = @get 'dealerHand'
@@ -36,12 +22,17 @@ class window.App extends Backbone.Model
       break if scores[1] == 21
       hand.hit()
       scores = hand.scores()
-    @setScore(hand)
     @setWinner()
 
+  getFinalScore: (hand) ->
+    scores = hand.scores()
+    score = scores[0]
+    score = scores[1]  if scores.length > 1 and scores[1] <= 21
+    return score
+
   setWinner: ->
-    playerScore = @get('playerScore')
-    dealerScore = @get('dealerScore')
+    playerScore = @getFinalScore(@get 'playerHand')
+    dealerScore = @getFinalScore(@get 'dealerHand')
 
     console.log playerScore, dealerScore
     if playerScore is dealerScore or (playerScore > 21 and dealerScore > 21)

@@ -6,7 +6,7 @@ class window.Hand extends Backbone.Collection
 
   hit: ->
     @add(@deck.pop()).last()
-    @checkScore()
+    @checkBust()
     return
 
   stand: ->
@@ -24,7 +24,7 @@ class window.Hand extends Backbone.Collection
     , 0
     if hasAce then [score, score + 10] else [score]
 
-  checkScore: ->
+  checkBust: ->
     # first position in scores is always the hard bust
     # second position means ace exists, and total == 21 is not bust
     scores = @scores()
