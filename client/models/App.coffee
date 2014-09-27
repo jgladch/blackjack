@@ -6,12 +6,14 @@ class window.App extends Backbone.Model
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
     @set 'winner', undefined
+    @set 'disableButtons', false
     @set 'playerScore', 0
     @set 'dealerScore', 0
 
     # event handlers
     @get('playerHand').on('stand', (hand) =>
       @setScore hand
+      @set 'disableButtons', true
       @dealerPlay() )
     @get('dealerHand').on('stand', (hand) =>
       @setScore hand )

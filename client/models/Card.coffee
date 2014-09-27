@@ -11,6 +11,7 @@ class window.Card extends Backbone.Model
         when 11 then 'Jack'
         when 12 then 'Queen'
         else params.rank
+    @set 'cardImg', "background-image:url(img/cards/" + @get("rankName") + "-" + @get("suitName") + ".png)"
 
   flip: ->
     @set 'revealed', !@get 'revealed'

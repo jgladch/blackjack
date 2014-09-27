@@ -1,7 +1,16 @@
 class window.AppView extends Backbone.View
 
   template: _.template '
-    <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
+    <button class="hit-button"
+    <%if (disableButtons){ %>
+     disabled
+    <% } %>
+    >Hit</button> <button class="stand-button"
+    <%if (disableButtons) { %>
+      disabled
+    <% } %>
+    >Stand</button>
+    <button class="reset-button">Reset</button>
     <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
 
@@ -13,6 +22,7 @@ class window.AppView extends Backbone.View
   events:
     "click .hit-button": -> @model.get('playerHand').hit()
     "click .stand-button": -> @model.get('playerHand').stand()
+    "click .reset-button": -> @model.initialize()
     #"change:winner": -> @render()
 
   initialize: ->
