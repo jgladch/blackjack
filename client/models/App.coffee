@@ -41,9 +41,10 @@ class window.App extends Backbone.Model
     playerScore = @get('playerScore')
     dealerScore = @get('dealerScore')
 
+    console.log playerScore, dealerScore
     if playerScore is dealerScore or (playerScore > 21 and dealerScore > 21)
       winner = "tie"
-    else if playerScore > dealerScore
+    else if dealerScore > 21 or (playerScore > dealerScore and playerScore <= 21)
       winner = "player"
     else
       winner = "dealer"

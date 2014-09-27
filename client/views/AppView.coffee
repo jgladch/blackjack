@@ -21,8 +21,8 @@ class window.AppView extends Backbone.View
 
   render: ->
     @$el.children().detach()
-    if @model.get('winner')?
-      debugger
+    # if @model.get('winner')?
+    #   debugger
     @$el.html @template(@model.attributes)
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
