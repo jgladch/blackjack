@@ -6,6 +6,11 @@ class window.Hand extends Backbone.Collection
 
   hit: ->
     @add(@deck.pop()).last()
+    @checkScore()
+    return
+
+  stand: ->
+    @trigger('stand', @)
 
   scores: ->
     # The scores are an array of potential scores.
@@ -18,3 +23,10 @@ class window.Hand extends Backbone.Collection
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
     if hasAce then [score, score + 10] else [score]
+
+  checkScore: ->
+    # first position in scores is always the hard bust
+    # second position means ace exists, and total == 21 is not bust
+    scores = @scores()
+    if scores[0] > 21 then @stand()
+    return
