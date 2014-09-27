@@ -8,7 +8,6 @@ class window.App extends Backbone.Model
     @set 'winner', undefined
     @set 'playerScore', 0
     @set 'dealerScore', 0
-    # debugger
 
     # event handlers
     @get('playerHand').on('stand', (hand) =>
